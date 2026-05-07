@@ -1,13 +1,16 @@
 #include <stdio.h>
 #include <string.h>
 
-
 /*
 * Example:
 * Using tr and trc gives the same result:
 *
 *  $ echo xyz | ./trc --delete abc
 *  $ echo xaz | ./trc --delete abc
+*
+* echo "Phone: " | tr -d '0-9'
+*
+* cat file.txt | tr -d '\n'
 */
 int contains(char *s, char c)
 {
@@ -54,10 +57,24 @@ int main(int argc, char **argv)
         if (!strcmp("--delete", argv[1]))
         {
             int c;
-
+            char template[200];
+            strcpy(template, argv[2]);
+            if (!strcmp("\\n", template)) {
+                strcpy(template, "\n");
+            }
+            if (contains(template, '-')) {
+                char temp[200];
+                char *t = temp;
+                for (int v=template[0]; v<=template[2]; v++) {
+                    *t++ = v;
+                }
+                *t = '\0';
+                strcpy(template, temp);
+            }
+            printf("%s\n", template);
             while ((c = getchar()) != EOF)
             {
-                if (!contains(argv[2], c))
+                if (!contains(template, c))
                 {
                     putchar(c);
                 }
