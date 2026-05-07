@@ -1,6 +1,14 @@
 #include <stdio.h>
 #include <string.h>
 
+
+/*
+* Example:
+* Using tr and trc gives the same result:
+*
+*  $ echo xyz | ./trc --delete abc
+*  $ echo xaz | ./trc --delete abc
+*/
 int contains(char *s, char c)
 {
     while (*s)
@@ -30,7 +38,7 @@ int main(int argc, char **argv)
             printf("writing to standard output.\n");
 
             printf("OPTION include:\n");
-            printf("-d, --delete            delete characters in ARRAY1, do not translate\n");
+            printf("-d, --delete            delete characters in ARRAY, do not translate\n");
             printf("Interpreted sequences are:\n");
 
             printf("    \n              new line\n");
@@ -45,9 +53,6 @@ int main(int argc, char **argv)
     {
         if (!strcmp("--delete", argv[1]))
         {
-            // tr --delete '\n'
-            // printf("%s\n", argv[2]);
-
             int c;
 
             while ((c = getchar()) != EOF)
@@ -57,7 +62,6 @@ int main(int argc, char **argv)
                     putchar(c);
                 }
             }
-            //putchar('\n');
         }
         else
         {
